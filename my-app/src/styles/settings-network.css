@@ -1,0 +1,108 @@
+* {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+/* .window-notice {
+  background: #3f3f3fcf;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 43px;
+  position: fixed;
+  z-index: 999;
+} */
+
+/* .content {
+  background: #cccccc;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(33, 41, 52, 0.75);
+  max-width: 245px;
+  min-height: 300px;
+  padding: 2rem;
+  float: right;
+  margin: 10px 25px 0px 0px;
+} */
+
+#logoClose {
+  float: right;
+  margin: -25px;
+}
+
+#bloqlog {
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+.bloqFor {
+  display: ruby;
+}
+
+/* .login-container {
+  display: block;
+  margin: auto;
+  background-color: #cccccc;
+  border-radius: 5px;
+  /*---NUEVA LINEA---
+  height: 361px;
+} */
+
+body {
+  display: grid;
+  margin: auto;
+  background-color: #cccccc;
+  border-radius: 5px;
+  /*---NUEVA LINEA---*/
+  width: 250px;
+  height: 300px;
+}
+
+/*ESTA LINEA TAMBIEN ES NUEVA*/
+.actions, .poweroff{
+  width: 85%;
+}
+
+.actions {
+  /* width: 100%; */
+  height: 50px;
+  background-color: #003366;
+  color: #cccccc;
+  border: 3px solid #003366;
+  padding: 0px 5px 5px 5px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.poweroff {
+  /* width: 100%; */
+  height: 45px;
+  padding: 0px 5px 5px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+
+  background-color: #cccccc;
+  border: 2px solid #003366;
+  color: #003366;
+}
+
+.poweroff:active {
+  background-color: #003366;
+  border-color: #003366;
+  color: #cccccc;
+  transform-origin: center;
+  transition-duration: 1000ms;
+  transition: transform 500ms ease-in-out;
+  transform: scale(1.1);
+}
+
+.actions:active {
+  background-color: #009966;
+  border-color: #009966;
+  transform: scale(1.1);
+  transform-origin: center;
+  transition: transform 500ms ease-in-out;
+}

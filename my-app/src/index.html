@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registro y Control De Asistencias Para Docentes</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <nav id="statebar">
+      <div id="navmanager">
+        <img id="radio" class="state" src="../img/vinyl_fill.svg" alt="" />
+        
+        <div id="sysicon">
+          <img id="logosBWA" class="batteryIcon" src="../img/transitions/battery_full.svg" alt=""/>
+          <div id="myModalBattery" class="modalBattery">
+            <div class="modal-content-Battery">
+              <span class="closeBattery">&times;</span>
+              <iframe id="modalFrameBattery" src=""></iframe>
+            </div>
+          </div>
+          <script src="../src/scripts/driverBattery.js"></script>
+<!-- ======================================================================================================= -->
+<!-- ======================================================================================================= -->
+
+          <img class="logosBWA" id="wifiIcon" src="../img/netstate/offline.svg" alt=""/>
+          <div id="myModalNetwork" class="modalNetwork">
+            <div class="modal-content-Network">
+              <span class="closeNetwork">&times;</span>
+              <iframe id="modalFrameNetwork" src=""></iframe>
+            </div>
+          </div>
+          <script src="../src/scripts/driverNetwork.js"></script>
+<!-- ======================================================================================================= -->
+<!-- ======================================================================================================= -->
+
+          <img class="logosBWA" id="logosetting" src="../img/gear.svg" alt=""/>
+          <div id="myModalLog" class="modalLog">
+            <div class="modal-content-Log">
+              <span class="closeLog">&times;</span>
+              <iframe id="modalFrameLog" src=""></iframe>
+            </div>
+          </div>
+          <script src="../src/scripts/driverLog.js"></script>
+        </div>
+
+      </div>
+    </nav>
+
+    <div style="text-align: center">
+      <img id="logo" src="../img/logoPNG.png" alt="" />
+    </div>
+
+    <div style="text-align: center" id="botones">
+      <button id="logqr">Registro por QR</button>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <iframe id="modalFrame" src="../src/views/scancode-qr.html"></iframe>
+        </div>
+      </div>
+
+      <button id="logmanual">Registro manual</button>
+      <script src="../src/scripts/windowQrCode.js"></script>
+    </div>
+  </body>
+</html>
