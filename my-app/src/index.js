@@ -30,8 +30,8 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow();
-  const menu = Menu.buildFromTemplate(menuTemplate);
-  Menu.setApplicationMenu(menu);
+  // const menu = Menu.buildFromTemplate(menuTemplate);
+  //Menu.setApplicationMenu(menu);
 
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
@@ -95,36 +95,36 @@ if (process.env.NODE_ENV !== "production") {
 //   executeSQLQuery(db, query);
 // });
 
-const sqlite3 = require("sqlite3").verbose();
+// const sqlite3 = require("sqlite3").verbose();
 
-class DatabaseManager {
-  constructor() {
-    if (!DatabaseManager.instance) {
-      this._db = this._connectToDatabase();
-      DatabaseManager.instance = this;
-    }
+// class DatabaseManager {
+//   constructor() {
+//     if (!DatabaseManager.instance) {
+//       this._db = this._connectToDatabase();
+//       DatabaseManager.instance = this;
+//     }
 
-    return DatabaseManager.instance;
-  }
+//     return DatabaseManager.instance;
+//   }
 
-  _connectToDatabase() {
-    const DB_PATH = "database/assistances.db";
-    return new sqlite3.Database(DB_PATH, sqlite3.OPEN_READWRITE, (err) => {
-      if (err) {
-        console.error("Error al abrir la base de datos: =======>", err.message);
-      } else {
-        console.log("Conectado a la base de datos SQLite: "+ DB_PATH);
-      }
-    });
-  }
+//   _connectToDatabase() {
+//     const DB_PATH = "database/assistances.db";
+//     return new sqlite3.Database(DB_PATH, sqlite3.OPEN_READWRITE, (err) => {
+//       if (err) {
+//         console.error("Error al abrir la base de datos: =======>", err.message);
+//       } else {
+//         console.log("Conectado a la base de datos SQLite: "+ DB_PATH);
+//       }
+//     });
+//   }
 
-  getDatabase() {
-    return this._db;
-  }
-}
+//   getDatabase() {
+//     return this._db;
+//   }
+// }
 
-// Crear una instancia única del gestor de la base de datos
-const databaseManager = new DatabaseManager();
+// // Crear una instancia única del gestor de la base de datos
+// const databaseManager = new DatabaseManager();
 
-// Exportar la instancia única para su uso en otras partes del código
-module.exports = databaseManager;
+// // Exportar la instancia única para su uso en otras partes del código
+// module.exports = databaseManager;
