@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="../../src/styles/styles-setting-log.css" />
+  </head>
+  <body>
+    <div class="content-text">
+      <div class="login-container">
+        <section class="bloqFor">
+          <img src="../../img/lock.svg" alt="" id="bloqlog" />
+          <form id="formLogin">
+            <div class="form-group">
+              <input type="text" id="username" name="username" required placeholder="usuario"/>
+            </div>
+            <div class="form-group">
+              <input type="password" id="password" name="password" required placeholder="contraseña"/>
+            </div>
+            <button id="loginbtn" class="login-button" type="submit">Ingresar</button>
+          </form>
+        </section>
+      </div>
+    </div>
+
+    <script>
+
+      var user;
+      var pass;
+
+      document.getElementById("formLogin").addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          user = document.getElementById('username').value;
+          pass = document.getElementById('password').value;
+          console.log("Credenciales de acceso: " + "\n" + "Usuario: " + user + "\n" + "Contraseña: " + pass);
+        });
+    </script>
+  </body>
+</html>

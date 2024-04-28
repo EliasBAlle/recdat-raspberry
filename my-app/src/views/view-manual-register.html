@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/styles-manual-register.css" />
+  </head>
+  <body>
+    <div class="content-text">
+      <div class="login-container">
+        <section class="bloqFor">
+          <img src="../../img/register.svg" alt="" id="bloqlog" />
+          <form id="firstForm">
+            <div class="labeltitle">
+              <label for="">Ingrese su correo o ID asignado</label>
+            </div>
+            <div class="form-group">
+              <input id="id/email" required />
+            </div>
+            <h6>
+              Estimado docente, recuerde que su ID único y/o su correo
+              corresponden a los registrados en el sistema. En caso contrario el
+              registro no podrá ser validado...
+            </h6>
+            <button class="login-button" type="submit">Continuar</button>
+          </form>
+
+          <form id="answerTheQuestion" style="display: none">
+            <div class="labeltitle">
+              <label for="">¿Cual es la pregunta objetivo?</label>
+            </div>
+            <div class="form-group" id="secondInput">
+              <input id="answer" required />
+            </div>
+            <button class="login-button" type="submit">Continuar</button>
+          </form>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      var respuesta;
+      var firstInputValue;
+
+      document.getElementById("firstForm").addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          firstInputValue = document.getElementById("id/email").value;
+          console.log(firstInputValue);
+
+          document.getElementById("firstForm").style.display = "none";
+          document.getElementById("answerTheQuestion").style.display = "block";
+        });
+
+      document.getElementById("answerTheQuestion").addEventListener("click", function (event) {
+
+          respuesta = document.getElementById("answer").value;
+
+            var combinedValues = "Correo/ID: " + firstInputValue + "\n" + "Respuesta: " + respuesta;
+            console.log(combinedValues);
+        });
+    </script>
+  </body>
+</html>

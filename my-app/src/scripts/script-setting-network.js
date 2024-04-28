@@ -23,7 +23,7 @@ wifiIcon.addEventListener('click', function() {
   modal.style.display = 'block';
 
   var modalFrame = document.getElementById('modalFrameNetwork');
-  modalFrame.src = '../src/views/settings-network.html';
+  modalFrame.src = '../src/views/view-settings-network.html';
 });
 
 var closeModal = document.getElementsByClassName('closeNetwork')[0];

@@ -64,7 +64,7 @@ batteryIcon.addEventListener("click", function () {
   modal.style.transition = "scale(1.1)";
 
   var modalFrame = document.getElementById("modalFrameBattery");
-  modalFrame.src = "../src/views/settings-battery.html";
+  modalFrame.src = "../src/views/view-settings-battery.html";
 });
 
 var closeModal = document.getElementsByClassName("closeBattery")[0];

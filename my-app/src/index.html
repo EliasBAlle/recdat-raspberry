@@ -18,7 +18,7 @@
               <iframe id="modalFrameBattery" src=""></iframe>
             </div>
           </div>
-          <script src="../src/scripts/driverBattery.js"></script>
+          <script src="../src/scripts/script-settings-battery.js"></script>
 <!-- ======================================================================================================= -->
 <!-- ======================================================================================================= -->
 
@@ -29,7 +29,7 @@
               <iframe id="modalFrameNetwork" src=""></iframe>
             </div>
           </div>
-          <script src="../src/scripts/driverNetwork.js"></script>
+          <script src="../src/scripts/script-setting-network.js"></script>
 <!-- ======================================================================================================= -->
 <!-- ======================================================================================================= -->
 
@@ -40,7 +40,7 @@
               <iframe id="modalFrameLog" src=""></iframe>
             </div>
           </div>
-          <script src="../src/scripts/driverLog.js"></script>
+          <script src="../src/scripts/script-settings-log.js"></script>
         </div>
 
       </div>
@@ -55,12 +55,19 @@
       <div id="myModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <iframe id="modalFrame" src="../src/views/scancode-qr.html"></iframe>
+          <iframe id="modalFrame" src="../src/views/view-scancode-qr.html"></iframe>
         </div>
       </div>
 
       <button id="logmanual">Registro manual</button>
-      <script src="../src/scripts/windowQrCode.js"></script>
+      <div id="myModalManual" class="modalManual">
+        <div class="modal-content-Manual">
+          <span class="closeManual">&times;</span>
+          <iframe id="modalFrameManual" src="../src/views/view-manual-register.html"></iframe>
+        </div>
+      </div>
+
+      <script src="../src/scripts/script-window-qrcode.js"></script>
     </div>
   </body>
 </html>

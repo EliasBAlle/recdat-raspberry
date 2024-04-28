@@ -6,32 +6,6 @@
   padding: 0;
 }
 
-/* .window-notice {
-  background: #3f3f3fcf;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  top: 43px;
-  position: fixed;
-  z-index: 999;
-} */
-
-/* .content {
-  background: #cccccc;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(33, 41, 52, 0.75);
-  max-width: 245px;
-  min-height: 300px;
-  padding: 2rem;
-  float: right;
-  margin: 10px 25px 0px 0px;
-} */
-
-/* #logoClose{
-  float: right;
-  margin: -25px;
-} */
-
 #bloqlog {
   margin-top: 20px;
   margin-bottom: 25px;
@@ -58,6 +32,7 @@ body {
   width: 250px;
   height: 300px;
 }
+
 .form-group {
   margin-bottom: 20px;
 }

@@ -1,0 +1,83 @@
+* {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+#bloqlog {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  border: 2px #797979;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.bloqFor {
+  display: ruby;
+}
+
+.labeltitle{
+    width: 115%;
+    margin-bottom: 25px;
+}
+
+.login-container {
+  display: block;
+  margin: auto;
+  background-color: #cccccc;
+  border-radius: 5px;
+  height: 361px;
+}
+
+body {
+  display: grid;
+  margin: auto;
+  background-color: #cccccc;
+  border-radius: 5px;
+
+  width: 250px;
+  height: 300px;
+}
+
+h6{
+  width: 98%;
+  color: #797979;
+  font-size: 10px;
+  text-align: justify;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group input {
+    width: 152%;
+    display: block;
+    margin-left: -70px;
+  height: 45px;
+  border: 1px solid #490066;
+  border-radius: 3px;
+  background-color: #cccccc;
+  padding: 0px 5px 5px 5px;
+}
+
+.login-button {
+  width: 100%;
+  height: 45px;
+  background-color: #003366;
+  color: #cccccc;
+  border: 3px solid #003366;
+  padding: 0px 5px 5px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.login-button:active {
+  background-color: #009966;
+  transform: scale(1.1);
+  transform-origin: center;
+  transition: transform 500ms ease-in-out;
+}

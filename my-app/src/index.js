@@ -1,40 +1,29 @@
-const { app, BrowserWindow, ipcMain, Menu } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
+const sqlite3 = require("sqlite3").verbose();
 const path = require("node:path");
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
 const createWindow = () => {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1048,
     height: 624,
+    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
 
-  // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "index.html"));
 
-  // Open the DevTools.
   mainWindow.webContents.openDevTools();
-
 };
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow();
-  // const menu = Menu.buildFromTemplate(menuTemplate);
-  //Menu.setApplicationMenu(menu);
-
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
@@ -42,89 +31,72 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
 if (process.env.NODE_ENV !== "production") {
   require("electron-reloader")(module);
   electron: path.join(__dirname, "../node_modules", ".bin", "electron");
 }
 
-// function connectToDatabase() {
-//   const sqlite3 = require("sqlite3").verbose();
-//   const DB_PATH = "database/assistances.db";
+//========================= >>>TODO EL METODO A LA CONEXION<<< =========================//
+class DatabaseManager {
+  constructor() {
+    if (!DatabaseManager.instance) {
+      this._db = this._connectToDatabase();
+      DatabaseManager.instance = this;
+    }
 
-//   return new sqlite3.Database(DB_PATH, sqlite3.OPEN_READWRITE, (err) => {
-//     if (err) {
-//       console.error("Error al abrir la base de datos: =======>", err.message);
-//     } else {
-//       console.log("Conectado a la base de datos SQLite assistances");
-//     }
-//   });
-// }
+    return DatabaseManager.instance;
+  }
 
-// function executeSQLQuery(db, query) {
-//   db.all(query, [], (err, rows) => {
-//     if (err) {
-//       console.error(err.message);
-//     } else {
-//       console.log("Filas retornadas:", rows.length);
-//       console.log(executeSQLQuery);
-//       //mainWindow.webContents.send('data-from-database', rows);
-//     }
-//   });
-// }
+  _connectToDatabase() {
+    const DB_PATH = "database/assistances.db";
+    return new sqlite3.Database(DB_PATH, sqlite3.OPEN_READWRITE, (err) => {
+      if (err) {
+        console.error("Error al abrir la base de datos: =======>", err.message);
+      } else {
+        console.log("Conectado a la base de datos SQLite: "+ DB_PATH);
+      }
+    });
+  }
 
-// const db = connectToDatabase();
-// const query =
-//   "SELECT first_name, second_name AS nombre_completo, first_surname, second_surname AS apellido_completo, id_number AS cedula, phone AS telefono, email AS correo, address AS direccion, photo AS foto, entry_date AS llegada, entry_time AS hora, departure_time AS salida FROM functionary INNER JOIN teaching_assistance";
+  getDatabase() {
+    return this._db;
+  }
+}
 
-// executeSQLQuery(db, query);
-// console.log(executeSQLQuery(db, query));
 
-// // Escuchar el evento de inicio de la aplicación desde la página HTML
-// ipcMain.on("start-app", (event, arg) => {
-//   executeSQLQuery(db, query);
-// });
+const databaseManager = new DatabaseManager();
 
-// const sqlite3 = require("sqlite3").verbose();
 
-// class DatabaseManager {
-//   constructor() {
-//     if (!DatabaseManager.instance) {
-//       this._db = this._connectToDatabase();
-//       DatabaseManager.instance = this;
-//     }
+module.exports = databaseManager;
 
-//     return DatabaseManager.instance;
-//   }
+//========================= >>>TODA LA LOGICA DE FUNCIONES A LA BD<<< =========================//
 
-//   _connectToDatabase() {
-//     const DB_PATH = "database/assistances.db";
-//     return new sqlite3.Database(DB_PATH, sqlite3.OPEN_READWRITE, (err) => {
-//       if (err) {
-//         console.error("Error al abrir la base de datos: =======>", err.message);
-//       } else {
-//         console.log("Conectado a la base de datos SQLite: "+ DB_PATH);
-//       }
-//     });
-//   }
+function executeSQLQuery(db, query) {
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+    } else {
+      console.log("Filas retornadas:", rows.length);
+      console.log(executeSQLQuery);
+    }
+  });
+}
 
-//   getDatabase() {
-//     return this._db;
-//   }
-// }
+const db = databaseManager.getDatabase();
 
-// // Crear una instancia única del gestor de la base de datos
-// const databaseManager = new DatabaseManager();
+// document.querySelector('button').addEventListener('click', event =>{
+//     console.log('doing submit...')
+//     const inputUserN = document.getElementById('username').value();
+//     const inputPassW = document.getElementById('password').value();
 
-// // Exportar la instancia única para su uso en otras partes del código
-// module.exports = databaseManager;
+//     let query = `SELECT * from user where username=${inputUserN} and password=${inputPassW}`;
+    
+//     const resultset = executeSQLQuery(db, query)
+//     console.log(resultset)
+// })
