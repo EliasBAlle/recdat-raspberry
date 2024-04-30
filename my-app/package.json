@@ -10,7 +10,8 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
-    "packager": "electron-packager . RECDAT --platform=win32,darwin --arch=x64 --icon=assets/icon.ico"
+    "packager": "electron-packager . RECDAT --platform=linux --arch=armv7l --icon=assets/icon.ico"
+
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.4.0",
@@ -21,7 +22,8 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron/fuses": "^1.8.0",
-    "electron": "30.0.1"
+    "electron": "30.0.1",
+    "webpack": "^5.91.0"
   },
   "keywords": [],
   "author": {

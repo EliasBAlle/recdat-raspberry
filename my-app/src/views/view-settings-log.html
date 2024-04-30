@@ -25,17 +25,21 @@
     </div>
 
     <script>
+      import { ipcModule } from '/src/index.js'
 
       var user;
       var pass;
 
       document.getElementById("formLogin").addEventListener("submit", function (event) {
-          event.preventDefault();
+        event.preventDefault();
 
-          user = document.getElementById('username').value;
-          pass = document.getElementById('password').value;
-          console.log("Credenciales de acceso: " + "\n" + "Usuario: " + user + "\n" + "Contraseña: " + pass);
-        });
+        user = document.getElementById('username').value;
+        pass = document.getElementById('password').value;
+        console.log("Credenciales de acceso: " + "\n" + "Usuario: " + user + "\n" + "Contraseña: " + pass);
+
+        const auth = { usuario: user, contraseña: pass }
+        ipcRenderer.send('credentials', auth);
+      });
     </script>
   </body>
 </html>

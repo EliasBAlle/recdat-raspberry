@@ -14,6 +14,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
+      nodeIntegrationInWorker: true
     },
   });
 
@@ -41,6 +42,16 @@ if (process.env.NODE_ENV !== "production") {
   require("electron-reloader")(module);
   electron: path.join(__dirname, "../node_modules", ".bin", "electron");
 }
+
+const ipcModule = function ipcFunction(){
+  const { ipcRenderer } = require("electron");
+}
+
+module.exports = ipcModule;
+
+ipcMain.on('credentials', (event, auth) => {
+  console.log(auth);
+})
 
 //========================= >>>TODO EL METODO A LA CONEXION<<< =========================//
 class DatabaseManager {
