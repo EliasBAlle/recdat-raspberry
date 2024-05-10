@@ -1,17 +1,17 @@
-//crea elemento
+// Crear elemento video
 const video = document.createElement("video");
 
-//nuestro camvas
+// Obtener el canvas y su contexto
 const canvasElement = document.getElementById("qr-canvas");
 const canvas = canvasElement.getContext("2d");
 
-//div donde llegara nuestro canvas
+// Obtener el botón para escanear QR
 const btnScanQR = document.getElementById("btn-scan-qr");
 
-//lectura desactivada
+// Estado de escaneo
 let scanning = false;
 
-//funcion para encender la camara
+// Encender la cámara
 const encenderCamara = () => {
   navigator.mediaDevices
     .getUserMedia({ video: { facingMode: "environment" } })
@@ -19,7 +19,7 @@ const encenderCamara = () => {
       scanning = true;
       btnScanQR.hidden = true;
       canvasElement.hidden = false;
-      video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+      video.setAttribute("playsinline", true);
       video.srcObject = stream;
       video.play();
       tick();
@@ -27,15 +27,15 @@ const encenderCamara = () => {
     });
 };
 
-//funciones para levantar las funiones de encendido de la camara
+// Función para dibujar en el canvas
 function tick() {
   canvasElement.height = video.videoHeight;
   canvasElement.width = video.videoWidth;
   canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-
   scanning && requestAnimationFrame(tick);
 }
 
+// Función para escanear QR
 function scan() {
   try {
     qrcode.decode();
@@ -44,7 +44,7 @@ function scan() {
   }
 }
 
-//apagara la camara
+// Apagar la cámara
 const cerrarCamara = () => {
   video.srcObject.getTracks().forEach((track) => {
     track.stop();
@@ -53,25 +53,13 @@ const cerrarCamara = () => {
   btnScanQR.hidden = false;
 };
 
+// Activar sonido
 const activarSonido = () => {
   var audio = document.getElementById("audioScaner");
   audio.play();
 };
 
-//callback cuando termina de leer el codigo QR
-qrcode.callback = (respuesta) => {
-  if (respuesta) {
-    //console.log(respuesta);
-    Swal.fire(respuesta);
-    activarSonido();
-    //encenderCamara();
-    cerrarCamara();
-  }
-};
-//evento para mostrar la camara sin el boton
-window.addEventListener("load", (e) => {
-  encenderCamara();
-});
+// Callback cuando se lee el código QR
 qrcode.callback = (respuesta) => {
   if (respuesta) {
     Swal.fire("Registro exitoso");
@@ -81,31 +69,60 @@ qrcode.callback = (respuesta) => {
   }
 };
 
-// Función para tomar una foto y guardarla
+// Tomar foto
 function tomarFoto() {
-  // Crear un nuevo canvas para guardar la imagen
-  const fotoCanvas = document.createElement("canvas");
-  const fotoContext = fotoCanvas.getContext("2d");
-
-  // Ajustar el tamaño del canvas al tamaño del video
-  fotoCanvas.width = video.videoWidth;
-  fotoCanvas.height = video.videoHeight;
-
-  // Dibujar el video en el canvas
-  fotoContext.drawImage(video, 0, 0, fotoCanvas.width, fotoCanvas.height);
-
-  // Convertir el canvas a una imagen en formato base64
-  const fotoData = fotoCanvas.toDataURL("image/png");
-
-  // Crear un nuevo elemento de imagen
-  const foto = document.createElement("img");
-
-  // Establecer la fuente de la imagen como los datos del canvas
-  foto.src = fotoData;
-
-  // Guardar la imagen en la biblioteca de imágenes
-  const numeroFoto = Date.now(); // Usar la fecha y hora actual como número de foto
-  localStorage.setItem("img/foto" + numeroFoto, fotoData);
-
-  // Cerrar el modal
+  var canvas = document.createElement('canvas');
+  var context = canvas.getContext('2d');
+  context.drawImage(video, 0, 0, 640, 480);
+  var foto = canvas.toDataURL('image/png');
+  console.log("Foto tomada con éxito.");
+  var imgElement = document.createElement('img');
+  imgElement.src = foto;
+  document.body.appendChild(imgElement);
+  setTimeout(function() {
+      imgElement.remove();
+  }, 3000);
+  var fotoBase64 = foto.split(',')[1];
+  var fotoBlob = base64ToBlob(fotoBase64, 'image/png');
+  guardarFotoEnFileSystem(fotoBlob);
 }
+
+// Convertir base64 a blob
+function base64ToBlob(base64, mime) {
+  var byteCharacters = atob(base64);
+  var byteArrays = [];
+  for (var offset = 0; offset < byteCharacters.length; offset += 512) {
+      var slice = byteCharacters.slice(offset, offset + 512);
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+      }
+      var byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+  }
+  return new Blob(byteArrays, { type: mime });
+}
+
+// Guardar foto en sistema de archivos local
+function guardarFotoEnFileSystem(blob) {
+  window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+  window.requestFileSystem(window.TEMPORARY, 5 * 1024 * 1024, function(fs) {
+      fs.root.getFile('foto.png', { create: true }, function(fileEntry) {
+          fileEntry.createWriter(function(fileWriter) {
+              fileWriter.write(blob);
+              console.log("Imagen guardada en el sistema local.");
+          }, function(error) {
+              console.error("Error al crear el escritor del archivo:", error);
+          });
+      }, function(error) {
+          console.error("Error al obtener el archivo:", error);
+      });
+  }, function(error) {
+      console.error("Error al solicitar acceso al sistema de archivos:", error);
+  });
+}
+
+// Evento para activar la cámara cuando la página se carga completamente
+window.addEventListener('load', (e) => {
+  encenderCamara();
+});
